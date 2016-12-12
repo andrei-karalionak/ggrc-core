@@ -120,14 +120,15 @@ def get_value(people_group, audit, obj, template=None):
     return None
 
   types = {
-      "Object Owners": [
-          owner.person for owner in getattr(obj, 'object_owners', None)
-      ],
+      # Should be updated by someone (hope Miha will assist :)) to setup correct data for generated assessment
+      # "Object Owners": [
+      #    owner.person for owner in getattr(obj, 'object_owners', None)
+      # ],
+      # "Primary Contact": getattr(obj, 'contact', None),
+      # "Secondary Contact": getattr(obj, 'secondary_contact', None),
+      # "Primary Assessor": getattr(obj, 'principal_assessor', None),
+      # "Secondary Assessor": getattr(obj, 'secondary_assessor', None),
       "Audit Lead": getattr(audit, 'contact', None),
-      "Primary Contact": getattr(obj, 'contact', None),
-      "Secondary Contact": getattr(obj, 'secondary_contact', None),
-      "Primary Assessor": getattr(obj, 'principal_assessor', None),
-      "Secondary Assessor": getattr(obj, 'secondary_assessor', None),
   }
   people = template.default_people.get(people_group)
   if not people:
