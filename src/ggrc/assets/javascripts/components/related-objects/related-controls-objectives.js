@@ -7,20 +7,26 @@
   'use strict';
 
   /**
-   * Simple wrapper component to load Related to Parent Object Audits
+   * Simple wrapper component to load Related to Parent Object Snapshots of Controls and Objectives
    */
   can.Component.extend({
-    tag: 'related-audits',
+    tag: 'related-controls-objectives',
     viewModel: {
       define: {
         parentInstance: {
           value: {}
         },
-        // Load only Audits
-        relatedTypes: {
-          type: '*',
+        mappedSnapshots: {
+          type: Boolean,
+          value: true
+        },
+        // Load only Controls and Objectives
+        filter: {
           value: function () {
-            return ['Audit'];
+            return {
+              only: ['Control', 'Objective'],
+              exclude: []
+            };
           }
         }
       }

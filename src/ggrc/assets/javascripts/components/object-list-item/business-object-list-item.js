@@ -7,8 +7,8 @@
   'use strict';
 
   var tpl = can.view(GGRC.mustache_path +
-    '/components/objects-list-item/business-objects-item.mustache');
-  var tag = 'business-objects-item';
+    '/components/object-list-item/business-object-list-item.mustache');
+  var tag = 'business-object-list-item';
   /**
    * Mapped objects item view component
    */

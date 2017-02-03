@@ -7,10 +7,10 @@
   'use strict';
 
   var tpl = can.view(GGRC.mustache_path +
-    '/components/object-list-item/business-object-list-item.mustache');
-  var tag = 'business-object-list-item';
+    '/components/object-list-item/document-object-list-item.mustache');
+  var tag = 'document-object-list-item';
   /**
-   * Mapped objects item view component
+   * Simple component to show Document-like Objects
    */
   can.Component.extend({
     tag: tag,
@@ -18,35 +18,25 @@
     viewModel: {
       instance: {},
       define: {
-        type: {
-          type: String
-        },
-        isSnapshot: {
-          get: function () {
-            return this.attr('instance.type') === 'Snapshot';
-          }
+        showIcon: {
+          type: Boolean,
+          value: false
         },
         iconCls: {
           get: function () {
-            return !this.attr('isSnapshot') ?
-            'fa-' + this.attr('instance.type').toLowerCase() :
-            'fa-' + this.attr('instance.child_type').toLowerCase();
+            return this.attr('showIcon') ?
+            'fa-' + this.attr('itemData.title').toLowerCase() :
+            '';
           }
         },
         itemData: {
           get: function () {
-            return !this.attr('isSnapshot') ?
-              this.attr('instance') :
-              this.attr('instance.revision.content');
+            return this.attr('instance');
           }
         },
         itemTitle: {
           get: function () {
-            return this.attr('itemData.title') ||
-              this.attr('itemData.description_inline') ||
-              this.attr('itemData.name') ||
-              this.attr('itemData.email') ||
-              '<span class="empty-message">None</span>';
+            return this.attr('itemData.title') || this.attr('itemData.link');
           }
         }
       }
