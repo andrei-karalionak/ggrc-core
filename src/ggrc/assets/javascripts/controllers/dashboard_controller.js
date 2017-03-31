@@ -15,7 +15,7 @@
         this.display_prefs = prefs;
 
         this.init_tree_view_settings();
-        this.initCurrentRelatedInstanses();
+        this.initCurrentRelatedInstances();
         this.init_page_title();
         this.init_page_help();
         this.init_page_header();
@@ -30,7 +30,7 @@
         this.hide_widget_area();
         this.init_default_widgets();
         this.init_widget_area();
-        this.init_info_pin();
+        //this.init_info_pin();
       }.bind(this));
     },
 
@@ -53,7 +53,7 @@
       }.bind(this));
     },
 
-    initCurrentRelatedInstanses: function () {
+    initCurrentRelatedInstances: function () {
       var instance;
       if (!GGRC.Utils.CurrentPage.isObjectContextPage()) {
         return;
@@ -124,8 +124,8 @@
     },
 
     init_info_pin: function () {
-      this.info_pin = new CMS.Controllers
-        .InfoPin(this.element.find('.pin-content'));
+      /*this.info_pin = new CMS.Controllers
+        .InfoPin(this.element.find('.pin-content'));*/
     },
 
     '.nav-logout click': function (el, ev) {
@@ -346,7 +346,7 @@
         refetch = true;
       }
 
-      window.location.hash = path;
+      can.route.attr(path);
 
       this.display_path(path.length ? path : 'Summary_widget', refetch);
     },
@@ -366,18 +366,19 @@
         this.set_active_widget(widget);
         return this.display_widget_path(rest, refetch);
       }
-      return new $.Deferred().resolve();
+      return can.Deferred().resolve();
     },
 
     display_widget_path: function (path, refetch) {
-      var activeWidgetSelector = this.options.contexts.active_widget.selector;
+      var activeWidgetSelector = this.options
+        .contexts.attr('active_widget.selector');
       var $activeWidget = $(activeWidgetSelector);
       var widgetController = $activeWidget.control();
 
       if (widgetController && widgetController.display_path) {
         return widgetController.display_path(path, refetch);
       }
-      return new $.Deferred().resolve();
+      return can.Deferred().resolve();
     },
 
     set_active_widget: function (widget) {
@@ -398,11 +399,6 @@
         this.options.contexts.attr('active_widget').selector;
       var widget = $(panel);
       var dashboardCtr = this.options.dashboard_controller;
-      var infopinCtr = dashboardCtr.info_pin.element.control();
-
-      if (infopinCtr) {
-        infopinCtr.hideInstance();
-      }
 
       if (widget.length) {
         dashboardCtr.show_widget_area();

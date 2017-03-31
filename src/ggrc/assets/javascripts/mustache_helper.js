@@ -1505,7 +1505,7 @@ function get_observe_context(scope) {
 }
 
   Mustache.registerHelper('is_dashboard', function (options) {
-    return /dashboard/.test(window.location) ?
+    return /dashboard/.test(window.location.pathname) ?
       options.fn(options.contexts) :
       options.inverse(options.contexts);
   });
@@ -1517,8 +1517,8 @@ function get_observe_context(scope) {
   });
 
   Mustache.registerHelper('is_dashboard_or_all', function (options) {
-    return (/dashboard/.test(window.location) ||
-    /objectBrowser/.test(window.location)) ?
+    return (/dashboard/.test(window.location.pathname) ||
+    /objectBrowser/.test(window.location.pathname)) ?
       options.fn(options.contexts) :
       options.inverse(options.contexts);
   });

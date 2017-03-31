@@ -405,9 +405,13 @@
           .removeClass('maximized-info-pane');
       }
 
-      this.update_hash_fragment();
-      $('.pin-content').control()
-        .setInstance(this.options, $tree, maximizeInfoPane);
+      can.route.attr({
+        type: this.options.instance.type.toLowerCase(),
+        id: this.options.instance.id
+      });
+
+      can.trigger(window, 'selectTreeViewItem',
+        [this.options.instance, this.options.result]);
     },
 
     'input,select click': function (el, ev) {
@@ -423,7 +427,7 @@
       return this.expand();
     },
 
-    hash_fragment: function () {
+    /*hash_fragment: function () {
       var parentFragment = '';
 
       if (this.options.parent) {
@@ -439,6 +443,6 @@
 
       window.location.hash = [hash,
         this.hash_fragment()].join('');
-    }
+    }*/
   });
 })(window.can, window.$);

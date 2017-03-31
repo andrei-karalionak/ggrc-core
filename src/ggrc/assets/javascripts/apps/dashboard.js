@@ -264,4 +264,23 @@
   $(window).on('load', function () {
     $('html').removeClass('no-js');
   });
+
+  var AppState = can.Map.extend({});
+    var appState = window.appState = new AppState();
+    // Bind the application state to the root of the application
+    $('ggrc_app').html(can.view(GGRC.mustache_path +
+    '/components/info-pane/info-pane-wrapper.mustache', appState));
+    // Set up the routes
+   can.route(':page', { page: null });
+    can.route(':page/:type', { type: null });
+    can.route(':page/:type/:id', { type: null, id: null });
+
+    // Bind the application state to the can.route
+
+  can.route.map(appState);
+  can.route.ready();
+  //appState.attr('page', 'restaurants');
+    appState.bind('change', function(ev, prop, change, newVal, oldVal) {
+      console.info('Changed the “' + prop + '” property from “' + oldVal + '” to “' + newVal + '”.');
+    });
 })(window.can.$, window.can, window.CMS, window.GGRC);

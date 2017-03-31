@@ -4,7 +4,7 @@
 }}
 
 {{!section class="widget... }}
-  {{#if_equals widget_id "roles_list"}}
+  {{#eq widget_id "roles_list"}}
     <header class="header tree-header no-left-space {{#filter_is_hidden}}no-filter{{/filter_is_hidden}}">
       <div class="row-fluid">
         <div class="span6">
@@ -19,9 +19,9 @@
         </div>
       </div>
     </header>
-  {{/if_equals}}
+  {{/eq}}
 
-  {{#if_equals widget_id "custom_attribute"}}
+  {{#eq widget_id "custom_attribute"}}
   {{^is_dashboard}}
     <header class="header">
       <h2>
@@ -30,9 +30,9 @@
       </h2>
     </header>
   {{/is_dashboard}}
-  {{/if_equals}}
+  {{/eq}}
 
-  {{#if_equals widget_id "events_list"}}
+  {{#eq widget_id "events_list"}}
   {{^is_dashboard}}
     <header class="header">
       <h2>
@@ -41,9 +41,9 @@
       </h2>
     </header>
   {{/is_dashboard}}
-  {{/if_equals}}
+  {{/eq}}
 
-  {{#if_equals widget_id "info"}}
+  {{#eq widget_id "info"}}
   {{^is_dashboard}}
     <header class="header">
       <h2>
@@ -52,7 +52,7 @@
       </h2>
     </header>
   {{/is_dashboard}}
-  {{/if_equals}}
+  {{/eq}}
 
   <section class="content">
     {{{widget_initial_content}}}

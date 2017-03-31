@@ -37,19 +37,11 @@
 
     %section.content
       .flash
-        -with messages = get_flashed_messages(with_categories=True)
-          -if messages
-            -for category, message in messages
-              %div{ 'class': "{{category}}" }
-                %a.close{'href': "#", 'data-dismiss': "alert" }
-                  x
-                %p
-                  {{message}}
       -block main
         .object-area.row-fluid.full-width
           .inner-content.widget-area
             -block widget_area
-        .pin-content
+        %ggrc_app
 
     %section.footer
       =config.get('COPYRIGHT')

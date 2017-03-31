@@ -8,31 +8,27 @@
 
   GGRC.Components('infoPinButtons', {
     tag: 'info-pin-buttons',
-    template: can.view(
-      GGRC.mustache_path +
-      '/components/info-pin-buttons/info-pin-buttons.mustache'
-    ),
-    scope: {
+    template: can.view(GGRC.mustache_path +
+      '/components/info-pin-buttons/info-pin-buttons.mustache'),
+    viewModel: {
       onChangeMaximizedState: null,
-      onClose: null,
       define: {
         maximized: {
           type: 'boolean',
-          'default': false
+          value: false
         }
       },
       toggleSize: function (scope, el, ev) {
         var maximized = !this.attr('maximized');
-        var onChangeMaximizedState = Mustache.resolve(this.onChangeMaximizedState);
+        //var onChangeMaximizedState = Mustache.resolve(this.onChangeMaximizedState);
         ev.preventDefault();
         this.attr('maximized', maximized);
-        onChangeMaximizedState(maximized);
+        //onChangeMaximizedState(maximized);
       },
       close: function (scope, el, ev) {
-        var onClose = Mustache.resolve(this.onClose);
-        el.find('[rel=tooltip]').data('tooltip').hide();
         ev.preventDefault();
-        onClose();
+        can.route.removeAttr('id');
+        //onClose();
       }
     }
   }, true);
