@@ -33,7 +33,6 @@
                     </div>
                     <div class="assessment-controls__extra-controls">
                         <assessment-attachments-list
-                            tooltip="You can upload up to 10 files in a single batch"
                             {instance}="instance">
                         </assessment-attachments-list>
                         <assessment-urls-list {mapped-items}="documents"></assessment-urls-list>
@@ -46,6 +45,8 @@
                                     {^saving}="formState.saving"
                                     {^all-saved}="formState.allSaved"
                                     {^is-dirty}="formState.isDirty"
+                                    {evidence-amount}="instance.documents.length"
+                                    (validation-changed)="showRequiredInfoModal(%event)"
                     ></auto-save-form>
                   <!-- Modal Window to fix validation issues of CA fields -->
                     <simple-modal {(state)}="modal.state" {modal-title}="modal.modalTitle" {instance}="instance">

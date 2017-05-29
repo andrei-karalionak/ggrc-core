@@ -158,7 +158,8 @@
 
         return this.attr('instance').save();
       },
-      showRequiredInfoModal: function (scope) {
+      showRequiredInfoModal: function (e, field) {
+        var scope = field || e.field;
         var errors = scope.attr('errorsMap');
         var errorsList = can.Map.keys(errors)
           .map(function (error) {
@@ -168,6 +169,8 @@
             return !!errorCode;
           });
         var data = {
+          options: scope.attr('options'),
+          contextScope: scope,
           fields: errorsList,
           value: scope.attr('value'),
           title: scope.attr('title'),
