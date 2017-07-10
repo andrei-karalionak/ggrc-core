@@ -81,7 +81,7 @@ class TestExportSnapshots(TestCase):
     controls = models.Control.query.all()
     with factories.single_commit():
       audit = factories.AuditFactory()
-      snapshots = self._create_snapshots(audit, controls)
+      snapshots = self._create_snapshots(audit, *controls)
 
     control_dicts = {
         control.slug: {
@@ -144,7 +144,7 @@ class TestExportSnapshots(TestCase):
     with factories.single_commit():
       control = factories.ControlFactory(slug="Control 1")
       audit = factories.AuditFactory()
-      snapshot = self._create_snapshots(audit, [control])[0]
+      snapshot = self._create_snapshots(audit, control)[0]
       assessments = [factories.AssessmentFactory() for _ in range(3)]
       issues = [factories.IssueFactory() for _ in range(3)]
       assessment_slugs = {assessment.slug for assessment in assessments}
@@ -181,15 +181,14 @@ class TestExportSnapshots(TestCase):
     """Test exporting of a single full control snapshot."""
     cads = self._create_cads("control")
     with factories.single_commit():
-      controls = [factories.ControlFactory(slug="Control 1")]
+      control = factories.ControlFactory(slug="Control 1")
       for cad in cads:
         factories.CustomAttributeValueFactory(
-            attributable=controls[0],
+            attributable=control,
             custom_attribute=cad,
         )
       audit = factories.AuditFactory()
-      snapshots = self._create_snapshots(audit, controls)
-
+      snapshot = self._create_snapshots(audit, control)[0]
     control_dicts = {
         control.slug: {
             # normal fields
@@ -228,7 +227,6 @@ class TestExportSnapshots(TestCase):
             "Categories": u"",
             "Evidence": u"",
         }
-        for snapshot, control in zip(snapshots, controls)
     }
 
     search_request = [{
@@ -252,11 +250,11 @@ class TestExportSnapshots(TestCase):
   def test_same_revison_export(self):
     """Exporting the same revision multiple times."""
     with factories.single_commit():
-      controls = [factories.ControlFactory(slug="Control 1")]
+      control = factories.ControlFactory(slug="Control 1")
       audit1 = factories.AuditFactory()
-      self._create_snapshots(audit1, controls)
+      self._create_snapshots(audit1, control)
       audit2 = factories.AuditFactory()
-      self._create_snapshots(audit2, controls)
+      self._create_snapshots(audit2, control)
       audit_codes = {audit1.slug, audit2.slug}
 
     search_request = [{
@@ -295,7 +293,7 @@ class TestExportSnapshots(TestCase):
     controls = models.Control.query.all()
     with factories.single_commit():
       audit = factories.AuditFactory()
-      snapshots = self._create_snapshots(audit, controls)
+      snapshots = self._create_snapshots(audit, *controls)
       count = len(snapshots)
       assessments = [factories.AssessmentFactory() for _ in range(count)]
       issues = [factories.IssueFactory() for _ in range(count)]
