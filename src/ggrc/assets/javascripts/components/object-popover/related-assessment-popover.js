@@ -19,11 +19,11 @@
       popoverTitleInfo: 'Assessment Title: ',
       define: {
         hideTitle: {
-          type: Boolean,
+          type: 'boolean',
           value: false
         },
         popoverDirection: {
-          type: String,
+          type: 'string',
           value: 'right'
         },
         selectedAssessmentTitle: {
@@ -39,10 +39,11 @@
         selectedAssessmentFields: {
           get: function () {
             var caValues =
-              this.attr('selectedAssessment.data.custom_attribute_values');
-            return caValues ?
-              GGRC.Utils.CustomAttributes.convertValuesToFormFields(caValues) :
-              [];
+              this.attr('selectedAssessment.data.local_attributes');
+            caValues = (caValues) ? caValues.map(function (attr) {
+              return GGRC.Utils.CustomAttributes.prepareLocalAttribute(attr);
+            }) : [];
+            return caValues;
           }
         }
       }
