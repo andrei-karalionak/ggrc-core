@@ -36,14 +36,22 @@
             return this.attr('selectedAssessment.data.viewLink');
           }
         },
-        selectedAssessmentFields: {
+        localAttributes: {
           get: function () {
-            var caValues =
-              this.attr('selectedAssessment.data.local_attributes');
-            caValues = (caValues) ? caValues.map(function (attr) {
+            var attrs =
+              this.attr('selectedAssessment.data.local_attributes') || [];
+            return attrs.map(function (attr) {
               return GGRC.Utils.CustomAttributes.prepareLocalAttribute(attr);
-            }) : [];
-            return caValues;
+            });
+          }
+        },
+        globalAttributes: {
+          get: function () {
+            var attrs =
+              this.attr('selectedAssessment.data.global_attributes') || [];
+            return attrs.map(function (attr) {
+              return GGRC.Utils.CustomAttributes.prepareGlobalAttribute(attr);
+            });
           }
         }
       }

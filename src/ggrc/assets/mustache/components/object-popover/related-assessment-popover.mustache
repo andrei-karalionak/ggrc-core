@@ -7,10 +7,10 @@
                 {popover-link}="selectedAssessmentLink" {popover-title-info}="popoverTitleInfo"
                 {hide-title}="hideTitle">
     <tab-container class="related-assessments__tab-container">
-        <tab-panel {(panels)}="panels" title-text="Attributes">
-            <div class="fields-wrapper flex-box flex-row">
-                <show-more items="selectedAssessmentFields">
-                    <div class="field-wrapper flex-size-1">
+        <tab-panel {(panels)}="panels" title-text="Attributes" class="tab-panel">
+            <div class="fields-wrapper">
+                <show-more {items}="localAttributes">
+                    <div class="field-wrapper">
                         <form-validation-icon {validation}="validation"></form-validation-icon>
                         <div class="field__title form-field__title">
                             <label class="field__title-text" for="form-field-{{id}}">{{title}}</label>
@@ -25,8 +25,25 @@
                     </div>
                 </show-more>
             </div>
+            <div class="tab-panel__section-title">Global attributes</div>
+            <div class="fields-wrapper">
+                <show-more {items}="globalAttributes">
+                    <div class="field-wrapper field-wrapper__no-validation">
+                        <div class="field__title form-field__title">
+                            <label class="field__title-text" for="form-field-{{id}}">{{title}}</label>
+                            {{#if helptext}}
+                                <i class="fa fa-question-circle field__title-helper-text" rel="tooltip" title="{{helptext}}"></i>
+                            {{/if}}
+                        </div>
+                        <auto-save-form-field-view
+                                {type}="type"
+                                {value}="value"
+                        ></auto-save-form-field-view>
+                    </div>
+                </show-more>
+            </div>
         </tab-panel>
-        <tab-panel {(panels)}="panels" title-text="Comments">
+        <tab-panel {(panels)}="panels" title-text="Comments" class="tab-panel">
             <related-comments {parent-instance}="item.data">
                 <mapped-objects
                         {parent-instance}="parentInstance"
