@@ -42,6 +42,10 @@ auto-save-form {
     align-items: flex-start;
     justify-content: flex-start;
 
+    &__no-validation {
+      padding: 0 16px 16px 0;
+    }
+
     auto-save-form-field {
       display: block;
       flex: 1;
